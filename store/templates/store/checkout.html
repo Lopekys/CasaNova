@@ -1,0 +1,81 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% load countries %}
+
+{% block content %}
+    <div class="untree_co-section">
+        <div class="container">
+            <h2 class="text-center mb-5">Checkout</h2>
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="p-4 bg-white rounded shadow-sm">
+                            <h4 class="mb-4">Billing Details</h4>
+
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-success">{{ message }}</div>
+                                {% endfor %}
+                            {% endif %}
+
+                            {% for field in u_form %}
+                                <div class="form-group mb-3">
+                                    {{ field.label_tag }} {{ field }}
+                                    {% if field.errors %}
+                                        <div class="text-danger small">{{ field.errors|striptags }}</div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+
+                            {% for field in c_form %}
+                                <div class="form-group mb-3">
+                                    {{ field.label_tag }} {{ field }}
+                                    {% if field.errors %}
+                                        <div class="text-danger small">{{ field.errors|striptags }}</div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+
+                    <!-- Right side: Order summary -->
+                    <div class="col-md-6">
+                        <div class="p-4 bg-white rounded shadow-sm">
+                            <h4 class="mb-4">Your Order</h4>
+
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Total</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in cart_items %}
+                                    <tr>
+                                        <td>{{ item.name }} × {{ item.quantity }}</td>
+                                        <td>${{ item.total }}</td>
+                                    </tr>
+                                {% endfor %}
+                                <tr>
+                                    <td><strong>Subtotal</strong></td>
+                                    <td>${{ cart_subtotal }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Total</strong></td>
+                                    <td><strong>${{ cart_total }}</strong></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <button type="submit" class="btn btn-black btn-lg w-100">Place Order</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block title %}Services | CasaNova{% endblock %}
+{% block content %}
+<!-- Start Hero Section -->
+<div class="hero">
+  <div class="container">
+    <div class="row justify-content-between">
+      <div class="col-lg-5">
+        <div class="intro-excerpt">
+          <h1>Services</h1>
+          <p class="mb-4">
+            At CasaNova, we do more than furnish your home — we help bring your vision to life.
+            Our curated services ensure a seamless experience from design consultation to delivery,
+            making every step simple, stylish, and satisfying.
+          </p>
+          <p>
+            <a href="{% url 'shop' %}" class="btn btn-secondary me-2">Shop Now</a>
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="hero-img-wrap">
+          <img src="{% static 'images/couch.png' %}" class="img-fluid" alt="Couch">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Hero Section -->
+
+<!-- Start Why Choose Us Section -->
+<div class="why-choose-section">
+  <div class="container">
+    <div class="row my-5">
+      {% for icon, title in features %}
+        <div class="col-6 col-md-6 col-lg-3 mb-4">
+          <div class="feature">
+            <div class="icon">
+              <img src="{% static 'images/'|add:icon %}" alt="{{ title }}" class="img-fluid">
+            </div>
+            <h3>{{ title }}</h3>
+            <p>
+              {% if title == 'Fast & Free Shipping' %}
+                Enjoy quick and reliable delivery, absolutely free. We bring your furniture right to your doorstep — no hassle, no delays.
+              {% elif title == 'Easy to Shop' %}
+                Our intuitive online store and expert team make it easy to find the perfect piece for your space in just a few clicks.
+              {% elif title == '24/7 Support' %}
+                Questions? Concerns? Our support team is always ready to help — day or night, weekday or weekend.
+              {% elif title == 'Hassle Free Returns' %}
+                Not satisfied? No worries. Return your items with ease thanks to our flexible and customer-friendly return policy.
+              {% else %}
+                Discover premium service tailored to your comfort and convenience.
+              {% endif %}
+            </p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<!-- End Why Choose Us Section -->
+
+<!-- Start Product Section -->
+<div class="product-section pt-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
+        <h2 class="mb-4 section-title">Crafted with Excellence</h2>
+        <p class="mb-4">We pride ourselves on providing high-quality furniture designed with both form and function in mind.</p>
+      </div>
+
+      {% for i in "123" %}
+      <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+        <a class="product-item" href="{% url 'shop' %}">
+          <img src="{% static 'images/product-'|add:i|add:'.png' %}" class="img-fluid product-thumbnail">
+          <h3 class="product-title">{% if i == '1' %}Nordic Chair{% elif i == '2' %}Kruzo Aero Chair{% else %}Ergonomic Chair{% endif %}</h3>
+          <strong class="product-price">{% if i == '1' %}$50.00{% elif i == '2' %}$78.00{% else %}$43.00{% endif %}</strong>
+          <span class="icon-cross">
+            <img src="{% static 'images/cross.svg' %}" class="img-fluid">
+          </span>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<!-- End Product Section -->
+
+{% include "store/partials/footer.html" %}
+{% endblock %}

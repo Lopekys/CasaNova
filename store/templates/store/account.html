@@ -1,0 +1,125 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="untree_co-section">
+        <div class="container">
+            <h2 class="text-center mb-5">My Account</h2>
+
+            <div class="row">
+                <!-- Left Panel: Personal Info -->
+                <div class="col-lg-5 mb-5 mb-lg-0">
+                    <div class="p-4 bg-white rounded shadow-sm">
+                        <h4 class="mb-4">Personal Information</h4>
+                        <form method="post">
+                            {% csrf_token %}
+
+                            {% for field in u_form %}
+                                <div class="form-group mb-3">
+                                    {{ field.label_tag }} {{ field }}
+                                    {% if field.errors %}
+                                        <div class="text-danger small">{{ field.errors|striptags }}</div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+
+                            {% for field in p_form %}
+                                <div class="form-group mb-3">
+                                    {{ field.label_tag }} {{ field }}
+                                    {% if field.errors %}
+                                        <div class="text-danger small">{{ field.errors|striptags }}</div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+
+                            <button type="submit" class="btn btn-secondary w-100">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Right Panel: Order History -->
+                <div class="col-lg-7">
+                    <div class="p-4 bg-white rounded shadow-sm">
+                        <h4 class="mb-4">Order History</h4>
+
+                        {% if orders %}
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle">
+                                    <thead class="table-light text-center">
+                                    <tr>
+                                        <th scope="col">№</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="text-center">
+                                    {% for order in orders %}
+                                        <tr data-bs-toggle="collapse" data-bs-target="#order-{{ order.id }}"
+                                            class="clickable">
+                                            <td><strong>{{ order.id }}</strong></td>
+                                            <td>{{ order.created_at|date:"M d, Y" }}</td>
+                                            <td><span class="text-primary">${{ order.get_total_price }}</span></td>
+                                            <td>
+          <span class="badge rounded-pill
+            {% if order.status == 'Delivered' %}bg-success
+            {% elif order.status == 'Processing' %}bg-warning text-dark
+            {% elif order.status == 'Cancelled' %}bg-danger
+            {% else %}bg-secondary{% endif %}">
+            {{ order.status }}
+          </span>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary" type="button"
+                                                        data-bs-toggle="collapse"
+                                                        data-bs-target="#order-{{ order.id }}">View
+                                                </button>
+                                            </td>
+                                        </tr>
+
+                                        <tr class="collapse" id="order-{{ order.id }}">
+                                            <td colspan="5">
+                                                <div class="p-3 bg-light rounded">
+                                                    <ul class="list-unstyled mb-0">
+                                                        {% for item in order.items.all %}
+                                                            <li class="d-flex align-items-center mb-2">
+                                                                {% if item.product.image %}
+                                                                    <img src="{{ item.product.image.url }}"
+                                                                         alt="{{ item.product.name }}"
+                                                                         class="me-3 rounded"
+                                                                         style="width: 60px; height: auto;">
+                                                                {% else %}
+                                                                    <div class="me-3"
+                                                                         style="width: 60px; height: 60px; background: #eee;"></div>
+                                                                {% endif %}
+                                                                <div>
+                                                                    <strong>{{ item.product.name }}</strong><br>
+                                                                    Quantity: {{ item.quantity }}<br>
+                                                                    <span class="text-muted">Total: ${{ item.get_total_price }}</span>
+                                                                </div>
+                                                            </li>
+                                                        {% empty %}
+                                                            <li><em>No items found.</em></li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        {% else %}
+                            <div class="alert alert-info text-center mb-0">
+                                You have no orders yet.
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

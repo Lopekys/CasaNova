@@ -1,0 +1,41 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}About Us | CasaNova{% endblock %}
+
+{% block content %}
+
+    <!-- Start Hero Section -->
+    <div class="hero">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-lg-5">
+                    <div class="intro-excerpt">
+                        <h1>About Us</h1>
+                        <p class="mb-4">At CasaNova, we believe that your home should be a reflection of your
+                            personality, comfort, and lifestyle. That’s why we design and offer quality furniture that
+                            blends style, functionality, and durability.
+
+                            With a passion for craftsmanship and attention to detail, our team curates collections that
+                            transform spaces into warm, welcoming environments — whether you’re furnishing a new home or
+                            updating a single room. From contemporary to classic, CasaNova is here to help you create a
+                            space you’ll love coming back to.</p>
+                        <p>
+                            <a href="{% url 'shop' %}" class="btn btn-secondary me-2">Shop Now</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="hero-img-wrap">
+                        <img src="{% static 'images/couch.png' %}" class="img-fluid" alt="Couch">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Hero Section -->
+
+    {% include "store/partials/why_choose_us.html" %}
+    {% include "store/partials/footer.html" %}
+
+{% endblock %}

@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.swp
+
+*.log
+
+.env
+venv/
+.env.*
+
+.vscode/
+.idea/
+*.iml

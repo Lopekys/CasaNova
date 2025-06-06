@@ -1,0 +1,33 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="untree_co-section">
+        <div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+            <div class="col-lg-5 col-md-7">
+                <div class="bg-white p-5 shadow rounded">
+                    <h2 class="text-center mb-4 text-dark">Login</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_username" class="form-label">Username</label>
+                            <input type="text" name="username" class="form-control" id="id_username" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="id_password" class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" id="id_password" required>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-3">
+                        <span class="text-muted">Don't have an account?</span>
+                        <a href="{% url 'register' %}" class="text-decoration-underline">Register here</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include "store/partials/footer.html" %}
+{% endblock %}

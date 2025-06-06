@@ -1,0 +1,114 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block title %}Contact | CasaNova{% endblock %}
+{% block content %}
+
+    <!-- Start Hero Section -->
+    <div class="hero">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-lg-5">
+                    <div class="intro-excerpt">
+                        <h1>Contact</h1>
+                        <p class="mb-4">Discover stylish furniture made from premium materials, designed to elevate your
+                            space with comfort and elegance.</p>
+                        <p>
+                            <a href="{% url 'index' %}" class="btn btn-secondary me-2">Shop Now</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="hero-img-wrap">
+                        <img src="{% static 'images/couch.png' %}" class="img-fluid" alt="Couch">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Hero Section -->
+
+    <!-- Start Contact Form -->
+    <div class="untree_co-section">
+        <div class="container">
+            <div class="block">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-lg-8 pb-4">
+
+                        <div class="row mb-5">
+                            <div class="col-lg-4">
+                                <div class="service d-flex">
+                                    <div class="service-icon color-1 mb-4">
+                                        <i class="bi bi-geo-alt-fill"></i>
+                                    </div>
+                                    <div class="service-contents">
+                                        <p>43 Raymouth Rd. Baltemoer, London 3910</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="service d-flex">
+                                    <div class="service-icon color-1 mb-4">
+                                        <i class="bi bi-envelope-fill"></i>
+                                    </div>
+                                    <div class="service-contents">
+                                        <p>info@casanova.com</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="service d-flex">
+                                    <div class="service-icon color-1 mb-4">
+                                        <i class="bi bi-telephone-fill"></i>
+                                    </div>
+                                    <div class="service-contents">
+                                        <p>+1 294 3925 3939</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form method="post">
+                            {% csrf_token %}
+                            {% if error %}
+                                <div class="alert alert-danger mt-2">{{ error }}</div>
+                            {% endif %}
+                            {% if success %}
+                                <div class="alert alert-success mt-2">Thank you for your message! We will get back to
+                                    you soon.
+                                </div>
+                            {% endif %}
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label class="text-black" for="fname">First name</label>
+                                        <input type="text" class="form-control" id="fname" name="fname">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label class="text-black" for="lname">Last name</label>
+                                        <input type="text" class="form-control" id="lname" name="lname">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="text-black" for="email">Email address</label>
+                                <input type="email" class="form-control" id="email" name="email">
+                            </div>
+                            <div class="form-group mb-5">
+                                <label class="text-black" for="message">Message</label>
+                                <textarea name="message" class="form-control" id="message" cols="30"
+                                          rows="5"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary-hover-outline">Send Message</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Contact Form -->
+    {% include "store/partials/footer.html" %}
+{% endblock %}

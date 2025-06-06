@@ -1,0 +1,49 @@
+{% load static %}
+
+<!-- Start Blog Section -->
+<div class="blog-section">
+  <div class="container">
+    <div class="row">
+      {% for post in posts %}
+      <div class="col-12 col-sm-6 col-md-4 mb-5">
+        <div class="post-entry card h-100 shadow-sm border-0"
+             style="cursor:pointer;"
+             onclick="toggleExclusiveDetails({{ post.id }})">
+          <img src="{{ post.image.url }}" alt="Image" class="img-fluid card-img-top">
+          <div class="post-content-entry card-body">
+            <h3 class="h5 mb-2">
+              {{ post.title }}
+            </h3>
+            <div class="meta small text-muted mb-2">
+              <span>by {{ post.author }}</span> &middot;
+              <span>{{ post.date|date:"M d, Y" }}</span>
+            </div>
+            <div id="details-{{ post.id }}" class="blog-details mt-3" style="display:none;">
+              <div class="card card-body bg-light border-0">
+                {{ post.content|linebreaks }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<!-- End Blog Section -->
+
+<script>
+function toggleExclusiveDetails(id) {
+    var current = document.getElementById('details-' + id);
+    var isOpen = current.style.display === 'block';
+    
+    document.querySelectorAll('.blog-details').forEach(function(div) {
+        div.style.display = 'none';
+    });
+    
+    if (!isOpen) {
+        current.style.display = 'block';
+    }
+}
+
+</script>

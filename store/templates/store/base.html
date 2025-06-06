@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Untree.co">
+    <link rel="shortcut icon" href="{% static 'favicon.png' %}">
+
+    <title>{% block title %}CasaNova{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="{% static 'css/tiny-slider.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+<!-- Start Header/Navigation -->
+<nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'index' %}">CasaNova<span>.</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+                aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarsFurni">
+            <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+                <li><a class="nav-link" href="{% url 'shop' %}">Shop</a></li>
+                <li><a class="nav-link" href="{% url 'about' %}">About us</a></li>
+                <li><a class="nav-link" href="{% url 'services' %}">Services</a></li>
+                <li><a class="nav-link" href="{% url 'blog' %}">Blog</a></li>
+                <li><a class="nav-link" href="{% url 'contact' %}">Contact us</a></li>
+            </ul>
+            <ul class="custom-navbar-cta navbar-nav d-flex align-items-end gap-4 list-unstyled mb-2 mb-md-0">
+                {% if user.is_authenticated %}
+                    <li>
+                        <a class="nav-link p-0" href="{% url 'account' %}" title="Account">
+                            <img src="{% static 'images/user.svg' %}" alt="Account" height="22">
+                        </a>
+                    </li>
+                    <li>
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn p-0 border-0 bg-transparent" title="Logout">
+                                <img src="{% static 'images/logout.svg' %}" alt="Logout" height="22">
+                            </button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li>
+                        <a class="nav-link p-0" href="{% url 'login' %}" title="Login">
+                            <img src="{% static 'images/user.svg' %}" alt="Login" height="22">
+                        </a>
+                    </li>
+                {% endif %}
+                <li>
+                    <a class="nav-link p-0" href="{% url 'cart' %}" title="Cart">
+                        <img src="{% static 'images/cart.svg' %}" alt="Cart" height="22">
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+<!-- End Header/Navigation -->
+
+{% block content %}{% endblock %}
+
+<!-- JS Files -->
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/tiny-slider.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+</body>
+</html>

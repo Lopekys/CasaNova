@@ -1,0 +1,58 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="untree_co-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-5">
+                    <h2 class="section-title">Create an Account</h2>
+                    <p>Join us and furnish your space with comfort and style.</p>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form method="post" class="p-4 p-md-5 border rounded-3 bg-white shadow-sm">
+                        {% csrf_token %}
+                        <div class="form-group mb-3">
+                            <label for="username" class="form-label text-black">Username</label>
+                            <input type="text" name="username" class="form-control" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="email" class="form-label text-black">Email</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="password1" class="form-label text-black">Password</label>
+                            <input type="password" name="password1" class="form-control" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="password2" class="form-label text-black">Confirm Password</label>
+                            <input type="password" name="password2" class="form-control" required>
+                        </div>
+
+                        <button class="btn btn-primary w-100 py-2 mb-3" type="submit">Register</button>
+                        <p class="text-center">Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+                    </form>
+                    {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                                {% for error in form.non_field_errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include "store/partials/footer.html" %}
+{% endblock %}
