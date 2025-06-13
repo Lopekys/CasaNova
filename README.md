@@ -23,7 +23,7 @@ It features a product catalog, shopping cart, checkout, blog, testimonials, news
 2. **Create and activate a virtual environment:**
     ```bash
     python -m venv venv
-    source venv/Scripts/activate      # On Linux/Mac: source venv/bin/activate
+    venv\Scripts\activate      # On Linux/Mac: source venv/bin/activate
     ```
 
 3. **Install dependencies:**
